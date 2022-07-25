@@ -11,7 +11,7 @@ from pathlib import Path
 
 def run():
     
-    search_term = "global warming ?"
+    search_term = "satellites ?"
 
     # set variable to search
     tweetsmining = TweeterMining(search_term=search_term, tweets_amount=20)
@@ -20,10 +20,9 @@ def run():
     # cleaning tweets
     data = tweetsmining.cleaning()
       
-
+    # getting answers from gpt3
     gpt = GPT3()
     replay = []
-
 
     for tweet in data['tweets']:
         temp = gpt.run(tweet)
@@ -38,7 +37,8 @@ def run():
     data.to_csv(filepath)  
 
     # pushing tweets
-    writeTweets(data)
+    pushtweets = writeTweets()
+    pushtweets.run(data['id'], data['replay'])
 
     print(data)
 

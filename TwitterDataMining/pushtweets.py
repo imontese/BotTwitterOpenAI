@@ -2,17 +2,24 @@
 import tweepy
 import os
 
-def writeTweets(dataframe):
+class writeTweets:
 
-    replay = []
-    client = tweepy.Client(
-        os.getenv('bearer_token'), 
-        os.getenv('consumer_key'), 
-        os.getenv('consumer_secret'), 
-        os.getenv('access_token'), 
-        os.getenv('access_token_secret'))
+    client = ''
 
-    for i in range(dataframe.shape[0]):
-        client.create_tweet(in_reply_to_tweet_id=dataframe.loc[i][1],text= dataframe.loc[i][4])
+    def __init__(self):
+        self.client = tweepy.Client(
+            os.getenv('bearer_token'), 
+            os.getenv('consumer_key'), 
+            os.getenv('consumer_secret'), 
+            os.getenv('access_token'), 
+            os.getenv('access_token_secret'))
+        
 
-    print("Tweets Replay Push")
+    def run(self, ids, msg):
+
+        replay = []
+        
+        for i in range(ids.shape[0]):
+            self.client.create_tweet(in_reply_to_tweet_id=ids[i],text= msg[i])
+
+        print("Tweets Replay Push")
