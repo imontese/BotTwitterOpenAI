@@ -23,7 +23,7 @@ class GPT3:
                 model="text-davinci-002", 
                 prompt=msg, 
                 temperature=0.7,    # temperature 0-1 represent the risk that the algorithm is taking, 0 being the lowest 
-                max_tokens=50,
+                max_tokens=60,
                 top_p=1)
         except:
             print("An exception occurred")

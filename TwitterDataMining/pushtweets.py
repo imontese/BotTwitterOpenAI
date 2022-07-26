@@ -15,11 +15,23 @@ class writeTweets:
             os.getenv('access_token_secret'))
         
 
-    def run(self, ids, msg):
+    def run(self, ids=None, msg=None):
 
         replay = []
         
-        for i in range(ids.shape[0]):
-            self.client.create_tweet(in_reply_to_tweet_id=ids[i],text= msg[i])
+        if ids != None:
+            for i in range(ids.shape[0]):
+                try:
+                    self.client.create_tweet(in_reply_to_tweet_id=ids[i],text= msg[i])
+                except Exception as error:
+                    print(error)
 
-        print("Tweets Replay Push")
+            print("Tweets Replay Push")
+
+        else:
+            try:
+                self.client.create_tweet(text= msg)
+                print("Tweet push!")
+            except Exception as error:
+                    print(error)
+                
